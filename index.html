@@ -97,7 +97,7 @@
             background-image: url('armario.jpeg');
             background-size: cover;
             background-position: center;
-            overflow: hidden;
+            overflow-x: auto;
         }
 
         .armario1 {
@@ -110,7 +110,7 @@
             position: absolute;
             top: 0;
             left: 0;
-            width: 100%;
+            width: 500%;
             height: 100%;
             background-color: rgba(0, 0, 0, 0.5);
             z-index: 1;
@@ -119,18 +119,27 @@
         }
 
         .carrousel {
-            position: absolute;
-            top: 20%;
+            position: relative; /* Cambiado de absolute a relative */
+            top: 20%; /* Puedes ajustar esto según sea necesario */
             left: 0;
             display: flex;
             gap: 20px;
             z-index: 2;
             transition: opacity 2s ease-in;
             animation: scroll 10s linear infinite;
-            overflow-x: auto; /* Permite el scroll horizontal */
             scroll-snap-type: x mandatory; /* Mejora la experiencia de scroll */
             -webkit-overflow-scrolling: touch; /* Suaviza el scroll en iOS */
+            padding-bottom: 20px; /* Espacio para los controles */
         }
+
+        .producto {
+            scroll-snap-align: start; /* Alineación de los productos al desplazarse */
+            text-align: center;
+            min-width: 80vw; /* Asegura que el tamaño del producto se ajuste a la pantalla */
+            cursor: pointer;
+            flex: 0 0 auto; /* Impide que los productos se redimensionen al deslizarse */
+        }
+
 
         @keyframes scroll {
             0% {
@@ -148,7 +157,7 @@
         }
 
         .producto img {
-            width: 60%;
+            width: 150px;
             filter: drop-shadow(0 2px 5px rgba(242, 226, 221, 0.7));
             border-radius: 10px;
             transition: transform 0.3s ease;
@@ -442,11 +451,12 @@ productos.forEach(function(producto) {
     });
 });
 
+
 // Variables para almacenar los valores del toque inicial y final
 var touchStartX = 0;
 var touchEndX = 0;
 
-// Añade eventos de toque al carrusel
+// Añade eventos de toque y clic solo al carrusel
 document.querySelectorAll('.carrousel').forEach(function(carrousel) {
     carrousel.addEventListener('touchstart', function(event) {
         touchStartX = event.changedTouches[0].screenX;
@@ -462,9 +472,29 @@ document.querySelectorAll('.carrousel').forEach(function(carrousel) {
     carrousel.addEventListener('touchend', function(event) {
         touchEndX = event.changedTouches[0].screenX;
     });
+
+    // También habilitar el scroll horizontal con el ratón o trackpad
+    carrousel.addEventListener('mousedown', function(event) {
+        touchStartX = event.screenX;
+    });
+
+    carrousel.addEventListener('mousemove', function(event) {
+        if (touchStartX) {
+            touchEndX = event.screenX;
+            var distance = touchEndX - touchStartX;
+            carrousel.scrollLeft -= distance;
+            touchStartX = touchEndX;
+        }
+    });
+
+    carrousel.addEventListener('mouseup', function() {
+        touchStartX = 0;
+    });
+
+    carrousel.addEventListener('mouseleave', function() {
+        touchStartX = 0;
+    });
 });
-
-
     </script>
 </body>
 </html>
