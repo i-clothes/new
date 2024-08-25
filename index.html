@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>i-Clothes 2.0</title>
+    <!-- Incluye Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;700&display=swap" rel="stylesheet">
+    <!-- Incluye Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha512-Fo3rlrQkTyDd5hTC+IDTqe1lRaLo5Jp7kRbl9CFz6s4urDk9plxRHuwICQzeegvRLiyTEU7eAmFkPv2G07TvA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-color: #000;
+            color: #fff;
+            font-family: 'Raleway', sans-serif;
+            overflow: hidden;
+            transition: background-color 3s ease;
+        }
+
+        .slider1 {
+            text-align: center;
+        }
+
+        .logo img {
+            width: 200px;
+            animation: slideIn 1s ease-out forwards;
+        }
+
+        h1 {
+            font-size: 4rem;
+            margin: 20px 0 0 0;
+            white-space: nowrap;
+            overflow: hidden;
+            animation: slideIn 1s ease-out forwards;
+            animation-delay: 0.5s;
+        }
+
+        .input-container {
+            display: flex;
+            align-items: center;
+            margin-top: 20px;
+            animation: slideIn 1s ease-out forwards;
+            animation-delay: 1s;
+        }
+
+        input[type="text"] {
+            font-size: 2rem;
+            padding: 10px;
+            border: 2px solid #fff;
+            border-radius: 5px 0 0 5px;
+            background-color: #000;
+            color: #fff;
+            text-align: center;
+            border-right: none;
+            outline: none;
+            font-family: 'Raleway', sans-serif;
+        }
+
+        button {
+            font-size: 2rem;
+            padding: 10px 15px;
+            border: 2px solid #fff;
+            border-radius: 0 5px 5px 0;
+            background-color: #fff;
+            color: #000;
+            cursor: pointer;
+            outline: none;
+            font-family: 'Raleway', sans-serif;
+        }
+
+        button:hover {
+            background-color: #444;
+            color: #fff;
+        }
+
+        .ropa {
+            display: none;
+            color: black;
+            font-size: 25px;
+            width: 100%;
+            text-align: center;
+            position: relative;
+        }
+
+        .imagen-box {
+            position: relative;
+            display: inline-block;
+            height: 60vh;
+            width: 100%;
+            border-radius: 10px;
+            background-image: url('armario.jpeg');
+            background-size: cover;
+            background-position: center;
+            overflow: hidden;
+        }
+
+        .armario1 {
+            border-radius: 20px;
+            width: 100%;
+            filter: drop-shadow(0 2px 5px rgba(242, 226, 221, 0.7));
+        }
+
+        .capa {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1;
+            display: block;
+            border-radius: 10px;
+        }
+
+        .carrousel {
+            position: absolute;
+            top: 20%;
+            left: 0;
+            display: flex;
+            gap: 20px;
+            z-index: 2;
+            transition: opacity 2s ease-in;
+            animation: scroll 10s linear infinite;
+        }
+
+        @keyframes scroll {
+            0% {
+                transform: translateX(100%);
+            }
+            100% {
+                transform: translateX(-100%);
+            }
+        }
+
+        .producto {
+            text-align: center;
+            min-width: 80vw;
+            cursor: pointer;
+        }
+
+        .producto img {
+            width: 100%;
+            filter: drop-shadow(0 2px 5px rgba(242, 226, 221, 0.7));
+            border-radius: 10px;
+            transition: transform 0.3s ease;
+        }
+
+        .producto img:hover {
+            transform: scale(1.05);
+        }
+
+        .producto h3 {
+            margin-top: 10px;
+            font-size: 1.5rem;
+            color: white;
+        }
+
+        .controls {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            background-color: #111;
+            padding: 10px 20px;
+            z-index: 3;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            color: white;
+        }
+
+        .toggle-switch {
+            display: flex;
+            align-items: center;
+            font-size: 1.5rem;
+            color: #fff;
+            cursor: pointer;
+            margin-left: 10px;
+        }
+
+        .toggle-switch-input {
+            display: none;
+        }
+
+        .slider {
+            background-color: red;
+            border-radius: 5px;
+            padding: 5px 15px;
+            color: white;
+            transition: background-color 0.3s, transform 0.3s;
+            display: inline-block;
+            transform: translateX(0px);
+        }
+
+        .slider.on {
+            background-color: green;
+            transform: translateX(0px);
+        }
+
+        .slider.off {
+            background-color: red;
+            transform: translateX(0px);
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(-100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        .musica{
+            display: inline-block;
+        }
+
+        .deporte {
+            display: none;
+        }
+
+        .elegante {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <section class="slider1">
+        <div class="logo">
+            <img src="logo-ia.png" alt="Logo i-Clothes">
+        </div>
+        <h1>I-CLOTHES</h1>
+        <div class="input-container">
+            <input type="text" id="partner-input" placeholder="Persona que te invitó">
+            <button id="search-button">Acceder</button>
+        </div>
+    </section>
+
+    <section class="ropa">
+        <div class="imagen-box musica" data-category="musica" data-background="armario.jpeg">
+            <div class="capa"></div>
+            <div class="carrousel"  data-armario="armario.jpeg">
+                <div class="producto" data-link="https://www.marketingfuturoia.marketing/auriculares-pro-max">
+                    <img src="cascos.png" alt="AiricularesPro Max">
+                    <h3>AuricularesPro Max</h3>
+                </div>
+                <div class="producto" data-link="https://www.marketingfuturoia.marketing/auriculares-pro-max">
+                    <img src="cascos2.png" alt="AiricularesPro Max">
+                    <h3>AuricularesPro Max</h3>
+                </div>
+                <div class="producto" data-link="https://www.marketingfuturoia.marketing/auriculares-pro-max">
+                    <img src="cascos3.png" alt="AiricularesPro Max">
+                    <h3>AuricularesPro Max</h3>
+                </div>
+                <div class="producto" data-link="https://www.marketingfuturoia.marketing/auriculares-pro-max">
+                    <img src="cascos4.png" alt="AiricularesPro Max">
+                    <h3>AuricularesPro Max</h3>
+                </div>
+            </div>
+        </div>
+
+        <div class="imagen-box deporte" data-category="deporte" data-background="armario2.jpeg">
+            <div class="capa"></div>
+            <div class="carrousel"  data-armario="armario2.jpeg">
+                <div class="producto" data-link="https://www.marketingfuturoia.marketing/auriculares-pro-max">
+                    <img src="deportesia.png">
+                    <h3>Masajeador Cervical</h3>
+                </div>
+                <div class="producto" data-link="https://www.marketingfuturoia.marketing/auriculares-pro-max">
+                    <img src="desportesia2.png">
+                    <h3>Altavoz Bluetooth G 3 En 1 + Cargador Inalámbrico + Lámpara Led</h3>
+                </div>
+            </div>
+        </div>
+
+        <div class="imagen-box elegante" data-category="elegante" data-background="armario4.jpeg">
+            <div class="capa"></div>
+            <div class="carrousel"  data-armario="armario2.jpeg">
+                <div class="producto" data-link="https://www.marketingfuturoia.marketing/auriculares-pro-max">
+                    <img src="relojia.png">
+                    <h3>Smartwatch Ultra Negro + 1 Correa Gratis</h3>
+                </div>
+                <div class="producto" data-link="https://www.marketingfuturoia.marketing/auriculares-pro-max">
+                    <img src="relojia2.png">
+                    <h3>Smartwatch Ultra Gris + 1 Correa Gratis</h3>
+                </div>
+                <div class="producto" data-link="https://www.marketingfuturoia.marketing/auriculares-pro-max">
+                    <img src="relojia3.png">
+                    <h3>Smartwatch T500+ Blanco</h3>
+                </div>
+            </div>
+        </div>
+
+        <section class="controls">
+            <div>
+                Música
+                <label class="toggle-switch">
+                    <input type="checkbox" class="toggle-switch-input">
+                    <span class="slider off">Off</span>
+                </label>
+            </div>
+            <div>
+                Deporte
+                <label class="toggle-switch">
+                    <input type="checkbox" class="toggle-switch-input">
+                    <span class="slider off">Off</span>
+                </label>
+            </div>
+            <div>
+                Elegante
+                <label class="toggle-switch">
+                    <input type="checkbox" class="toggle-switch-input">
+                    <span class="slider off">Off</span>
+                </label>
+            </div>
+        </section>
+    </section>
+    
+    <script>
+  document.getElementById('search-button').addEventListener('click', function() {
+    document.body.style.backgroundColor = '#fff';
+    document.querySelector('.slider1').style.display = 'none';
+    document.querySelector('.ropa').style.display = 'block';
+    document.querySelector('body').style.backgroundImage = "url('fondoic.jpeg')";
+    document.querySelector('body').style.backgroundSize = 'contain';
+});
+
+// Initialize the Música switch as "On" by default
+var musicSwitch = document.querySelectorAll('.controls .toggle-switch-input')[0].checked = true;
+var musicSlider = document.querySelectorAll('.controls .slider')[0];
+musicSlider.classList.remove('off');
+musicSlider.classList.add('on');
+musicSlider.textContent = 'On';
+
+var toggleSwitches = document.querySelectorAll('.toggle-switch-input');
+toggleSwitches.forEach(function(toggleSwitch, index) {
+    toggleSwitch.addEventListener('click', function() {
+        // Turn off all switches
+        toggleSwitches.forEach(function(otherSwitch, otherIndex) {
+            otherSwitch.checked = false;
+            var otherSlider = otherSwitch.nextElementSibling;
+            otherSlider.classList.remove('on');
+            otherSlider.classList.add('off');
+            otherSlider.textContent = 'Off';
+        });
+
+        // Turn on only the selected switch
+        toggleSwitch.checked = true;
+        var sliderSpan = toggleSwitch.nextElementSibling;
+        sliderSpan.classList.remove('off');
+        sliderSpan.classList.add('on');
+        sliderSpan.textContent = 'On';
+
+        // Determine the selected category
+        var selectedCategory = ["musica", "deporte", "elegante"][index];
+
+        // Show the corresponding section and hide the others
+        var sections = document.querySelectorAll('.imagen-box');
+        sections.forEach(function(section) {
+            if (section.classList.contains(selectedCategory)) {
+                section.style.display = 'inline-block';
+                // Change the background of the selected section
+                var backgroundUrl = section.getAttribute('data-background');
+                section.style.backgroundImage = "url('" + backgroundUrl + "')";
+                section.style.backgroundSize = 'cover';
+            } else {
+                section.style.display = 'none';
+            }
+        });
+    });
+});
+
+// Select all elements with the class 'producto'
+var productos = document.querySelectorAll('.producto');
+
+// Add an event listener to each product
+productos.forEach(function(producto) {
+    producto.addEventListener('click', function() {
+        // Get the link from the data-link attribute
+        var enlace = producto.getAttribute('data-link');
+        // Redirect to the specified URL in data-link
+        window.location.href = enlace;
+    });
+});
+
+    </script>
+</body>
+</html>
