@@ -127,6 +127,9 @@
             z-index: 2;
             transition: opacity 2s ease-in;
             animation: scroll 10s linear infinite;
+            overflow-x: auto; /* Permite el scroll horizontal */
+            scroll-snap-type: x mandatory; /* Mejora la experiencia de scroll */
+            -webkit-overflow-scrolling: touch; /* Suaviza el scroll en iOS */
         }
 
         @keyframes scroll {
@@ -438,6 +441,29 @@ productos.forEach(function(producto) {
         window.location.href = enlace;
     });
 });
+
+// Variables para almacenar los valores del toque inicial y final
+var touchStartX = 0;
+var touchEndX = 0;
+
+// Añade eventos de toque al carrusel
+document.querySelectorAll('.carrousel').forEach(function(carrousel) {
+    carrousel.addEventListener('touchstart', function(event) {
+        touchStartX = event.changedTouches[0].screenX;
+    });
+
+    carrousel.addEventListener('touchmove', function(event) {
+        touchEndX = event.changedTouches[0].screenX;
+        var distance = touchEndX - touchStartX;
+        carrousel.scrollLeft -= distance;
+        touchStartX = touchEndX;
+    });
+
+    carrousel.addEventListener('touchend', function(event) {
+        touchEndX = event.changedTouches[0].screenX;
+    });
+});
+
 
     </script>
 </body>
