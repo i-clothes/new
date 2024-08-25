@@ -229,6 +229,49 @@
         .elegante {
             display: none;
         }
+
+         /* Responsive Styles */
+         @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+
+            .logo img {
+                width: 120px;
+            }
+
+            input[type="text"],
+            button {
+                font-size: 1.2rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 2rem;
+            }
+
+            .logo img {
+                width: 100px;
+            }
+
+            input[type="text"],
+            button {
+                font-size: 1rem;
+            }
+        }
+
+        /* "Acceder sin invitación" styles */
+        .access-without-invite {
+            margin-top: 10px;
+            text-decoration: underline;
+            color: white;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+        .slider1 a{
+            color: white;
+        }
     </style>
 </head>
 <body>
@@ -239,8 +282,9 @@
         <h1>I-CLOTHES</h1>
         <div class="input-container">
             <input type="text" id="partner-input" placeholder="Persona que te invitó">
-            <button id="search-button">Acceder</button>
+            <button class="search-button">Acceder</button>
         </div>
+        <p><a href="" class="search-button">Acceder sin invitación</a></p>
     </section>
 
     <section class="ropa">
@@ -324,13 +368,18 @@
     </section>
     
     <script>
-  document.getElementById('search-button').addEventListener('click', function() {
-    document.body.style.backgroundColor = '#fff';
-    document.querySelector('.slider1').style.display = 'none';
-    document.querySelector('.ropa').style.display = 'block';
-    document.querySelector('body').style.backgroundImage = "url('fondoic.jpeg')";
-    document.querySelector('body').style.backgroundSize = 'contain';
-});
+  // Selecciona todos los elementos con la clase 'search-button'
+  document.querySelectorAll('.search-button').forEach(function(element) {
+        element.addEventListener('click', function(event) {
+            event.preventDefault(); // Evita que el enlace recargue la página
+            // Función que se ejecutará al hacer clic
+            document.body.style.backgroundColor = '#fff';
+            document.querySelector('.slider1').style.display = 'none';
+            document.querySelector('.ropa').style.display = 'block';
+            document.querySelector('body').style.backgroundImage = "url('fondoic.jpeg')";
+            document.querySelector('body').style.backgroundSize = 'contain';
+        });
+    });
 
 // Initialize the Música switch as "On" by default
 var musicSwitch = document.querySelectorAll('.controls .toggle-switch-input')[0].checked = true;
