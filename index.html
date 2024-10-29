@@ -18,11 +18,15 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            background-color: #000;
+            background-image: url('fondoic.jpeg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
             color: #fff;
             font-family: 'Raleway', sans-serif;
             overflow: hidden;
-            transition: background-color 3s ease;
+
         }
 
         .slider1 {
@@ -289,7 +293,7 @@
 
 
         .ropa .logo-ia {
-         width: 150px;
+         width: 100px;
         margin: auto;
     }
     </style>
@@ -387,18 +391,7 @@
     </section>
     
     <script>
-  // Selecciona todos los elementos con la clase 'search-button'
-  document.querySelectorAll('.search-button').forEach(function(element) {
-        element.addEventListener('click', function(event) {
-            event.preventDefault(); // Evita que el enlace recargue la página
-            // Función que se ejecutará al hacer clic
-            document.body.style.backgroundColor = '#fff';
-            document.querySelector('.slider1').style.display = 'none';
-            document.querySelector('.ropa').style.display = 'block';
-            document.querySelector('body').style.backgroundImage = "url('fondoic.jpeg')";
-            document.querySelector('body').style.backgroundSize = 'contain';
-        });
-    });
+  
 
 // Initialize the Música switch as "On" by default
 var musicSwitch = document.querySelectorAll('.controls .toggle-switch-input')[0].checked = true;
