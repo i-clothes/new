@@ -521,38 +521,43 @@ productos.forEach(function(producto) {
 function navigateCarousel(direction) {
     const carrousel = document.querySelector('.carrousel');
     const productos = Array.from(carrousel.children);
-    const scrollPosition = carrousel.scrollLeft;
-    const carrouselWidth = carrousel.offsetWidth;
-    let closestProduct = null;
+    const currentScroll = carrousel.scrollLeft;
+    let targetProduct = null;
 
-    // Pausa la animación al hacer clic en las flechas
+    // Pausa la animación del carrusel
     carrousel.style.animationPlayState = 'paused';
 
-    // Encontrar el producto más cercano en la dirección seleccionada
+    // Seleccionar el producto objetivo según la dirección
     if (direction === -1) { // Navegación a la izquierda
-        closestProduct = productos.reverse().find(product => product.offsetLeft + product.offsetWidth < scrollPosition);
+        targetProduct = productos.slice().reverse().find(product => product.offsetLeft < currentScroll);
     } else if (direction === 1) { // Navegación a la derecha
-        closestProduct = productos.find(product => product.offsetLeft > scrollPosition);
+        targetProduct = productos.find(product => product.offsetLeft > currentScroll);
     }
 
-    // Centrar el producto más cercano si existe
-    if (closestProduct) {
-        const productOffset = closestProduct.offsetLeft;
-        const scrollOffset = productOffset - (carrouselWidth - closestProduct.offsetWidth) / 2;
-        carrousel.scrollLeft = scrollOffset;
+    // Si encontramos un producto, desplazamos la vista para centrarlo
+    if (targetProduct) {
+        targetProduct.scrollIntoView({
+            behavior: 'smooth',
+            block: 'nearest',
+            inline: 'center'
+        });
     }
 
-    // Ocultar las flechas si no hay más productos en la dirección seleccionada
-    if (direction === -1) {
-        document.querySelector('.carousel-left').style.display = productos.some(product => product.offsetLeft < carrousel.scrollLeft) ? 'block' : 'none';
-    } else {
-        document.querySelector('.carousel-right').style.display = productos.some(product => product.offsetLeft > carrousel.scrollLeft) ? 'block' : 'none';
-    }
+    // Ocultar o mostrar las flechas dependiendo de la posición actual
+    const firstProduct = productos[0];
+    const lastProduct = productos[productos.length - 1];
+
+    // Si el primer producto está visible, ocultar la flecha izquierda
+    document.querySelector('.carousel-left').style.display = (firstProduct.offsetLeft >= carrousel.scrollLeft) ? 'none' : 'block';
+    
+    // Si el último producto está visible, ocultar la flecha derecha
+    document.querySelector('.carousel-right').style.display = (lastProduct.offsetLeft <= carrousel.scrollLeft + carrousel.offsetWidth - lastProduct.offsetWidth) ? 'none' : 'block';
 }
 
-// Asigna el evento de clic a las flechas de navegación
+// Asignar los eventos de clic a las flechas de navegación
 document.querySelector('.carousel-left').addEventListener('click', () => navigateCarousel(-1));
 document.querySelector('.carousel-right').addEventListener('click', () => navigateCarousel(1));
+
 
 
 
