@@ -490,13 +490,13 @@ productos.forEach(function(producto) {
 
 
     
-    // Añade un evento de clic para pausar la animación del carrusel al tocar un producto
-    productos.forEach(function(producto) {
-        producto.addEventListener('click', function() {
-            var carrousel = producto.closest('.carrousel'); // Selecciona el carrusel contenedor
-            carrousel.style.animationPlayState = 'paused'; // Pausa la animación
-        });
-    });
+    // Añade un evento de clic para pausar la animación del carrusel al tocar la capa
+var capa = document.querySelector('.capa');
+capa.addEventListener('click', function() {
+    var carrousel = capa.closest('.carrousel'); // Selecciona el carrusel contenedor
+    carrousel.style.animationPlayState = 'paused'; // Pausa la animación
+});
+
 
 
 // Variables para almacenar los valores del toque inicial y final
