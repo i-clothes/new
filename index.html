@@ -19,8 +19,8 @@
             justify-content: center;
             align-items: center;
             background-image: url('fondoic.jpeg');
-    background-size: cover;
-    background-repeat: no-repeat;
+        background-size: contain;
+    background-repeat: repeat;
     background-attachment: fixed;
     background-position: center;
             color: #fff;
@@ -179,6 +179,42 @@
             color: white;
         }
 
+
+        /* Estilo de precio con efecto neón */
+.precio-neon {
+    display: inline-block;
+    font-size: 1.4em;
+    color: #00ffcc;
+    font-weight: bold;
+    text-shadow: 0 0 5px #00ffcc, 0 0 10px #00ffcc, 0 0 15px #00ffcc, 0 0 20px #00ffcc, 0 0 25px #00ffcc, 0 0 30px #00ffcc, 0 0 35px #00ffcc;
+    animation: neonBlink 1.5s ease-in-out infinite alternate;
+    margin-top: 5px;
+}
+
+/* Efecto de parpadeo para el neón */
+@keyframes neonBlink {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0.7;
+    }
+}
+
+/* Estilo de la etiqueta 'Top Ventas' */
+.top-ventas {
+    display: inline-block;
+    background-color: #ff4c4c;
+    color: #ffffff;
+    padding: 5px 10px;
+    font-size: 0.9em;
+    font-weight: bold;
+    border-radius: 5px;
+    margin-top: 8px;
+    text-transform: uppercase;
+    box-shadow: 0px 4px 8px rgba(255, 76, 76, 0.6);
+}
+
         .controls {
             position: fixed;
             bottom: 0;
@@ -306,10 +342,7 @@
         <div class="imagen-box musica" data-category="musica" data-background="armario.jpeg">
             <div class="capa"></div>
             <div class="carrousel"  data-armario="armario.jpeg">
-                <div class="producto" data-link="https://www.marketingfuturoia.marketing/auriculares-pro-max">
-                    <img src="desportesia2.png">
-                    <h3>Altavoz + Cargador Inalámbrico + Lámpara Led</h3>
-                </div>
+                
                 <div class="producto" data-link="https://www.marketingfuturoia.marketing/auriculares-pro-max">
                     <img src="cascos.png" alt="AiricularesPro Max">
                     <h3>AuricularesPro Max</h3>
@@ -332,10 +365,13 @@
         <div class="imagen-box deporte" data-category="deporte" data-background="armario6.jpeg">
             <div class="capa"></div>
             <div class="carrousel"  data-armario="armario2.jpeg">
-                <div class="producto" data-link="https://www.marketingfuturoia.marketing/auriculares-pro-max">
-                    <img src="desportesia2.png">
-                    <h3>Altavoz + Cargador Inalámbrico + Lámpara Led</h3>
+                <div class="producto" data-link="https://juancarloscruzcoba.systeme.io/chandal-nike">
+                    <img src="chandalnike.png" alt="Chándal Nike">
+                    <h3>Chándal Nike</h3>
+                    <span class="precio-neon">49,99 €</span>
+                    <span class="top-ventas">Top Ventas</span>
                 </div>
+
                 <div class="producto" data-link="https://www.marketingfuturoia.marketing/auriculares-pro-max">
                     <img src="deportesia.png">
                     <h3>Masajeador Cervical</h3>
@@ -450,6 +486,17 @@ productos.forEach(function(producto) {
         window.location.href = enlace;
     });
 });
+
+
+
+    
+    // Añade un evento de clic para pausar la animación del carrusel al tocar un producto
+    productos.forEach(function(producto) {
+        producto.addEventListener('click', function() {
+            var carrousel = producto.closest('.carrousel'); // Selecciona el carrusel contenedor
+            carrousel.style.animationPlayState = 'paused'; // Pausa la animación
+        });
+    });
 
 
 // Variables para almacenar los valores del toque inicial y final
