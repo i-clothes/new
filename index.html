@@ -22,7 +22,7 @@
         background-size: contain;
     background-repeat: repeat;
     background-attachment: fixed;
-    background-position: center;
+    background-position: top;
             color: #fff;
             font-family: 'Raleway', sans-serif;
             overflow: hidden;
@@ -490,12 +490,15 @@ productos.forEach(function(producto) {
 
 
     
-    // Añade un evento de clic para pausar la animación del carrusel al tocar la capa
-var capa = document.querySelector('.capa');
-capa.addEventListener('click', function() {
-    var carrousel = capa.closest('.carrousel'); // Selecciona el carrusel contenedor
-    carrousel.style.animationPlayState = 'paused'; // Pausa la animación
+   // Añade un evento de desplazamiento para pausar la animación del carrusel al usar el scroll horizontal
+var carrousel = document.querySelector('.carrousel');
+
+carrousel.addEventListener('wheel', function(event) {
+    if (event.deltaY !== 0) { // Solo se activa si hay desplazamiento vertical
+        carrousel.style.animationPlayState = 'paused'; // Pausa la animación
+    }
 });
+
 
 
 
