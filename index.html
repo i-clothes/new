@@ -533,9 +533,12 @@ function navigateCarousel(direction) {
     const scrollPosition = carrousel.scrollLeft;
     let closestProduct = null;
 
+    // Pausa la animación al hacer clic en las flechas
+    carrousel.style.animationPlayState = 'paused';
+
     // Encontrar el producto más cercano en la dirección seleccionada
     if (direction === -1) { // Navegación a la izquierda
-        closestProduct = productos.reverse().find(product => product.offsetLeft < scrollPosition);
+        closestProduct = productos.find(product => product.offsetLeft < scrollPosition);
     } else if (direction === 1) { // Navegación a la derecha
         closestProduct = productos.find(product => product.offsetLeft > scrollPosition);
     }
@@ -544,6 +547,7 @@ function navigateCarousel(direction) {
     if (closestProduct) {
         carrousel.scrollLeft = closestProduct.offsetLeft;
     } else {
+        // Ocultar las flechas si no hay más productos en esa dirección
         if (direction === -1) {
             document.querySelector('.carousel-left').style.display = 'none';
         } else {
@@ -551,7 +555,7 @@ function navigateCarousel(direction) {
         }
     }
 
-    // Volver a mostrar la flecha cuando haya productos en el lado contrario
+    // Mostrar las flechas si hay productos disponibles en la dirección opuesta
     if (productos.some(product => product.offsetLeft > carrousel.scrollLeft)) {
         document.querySelector('.carousel-right').style.display = 'block';
     }
@@ -560,16 +564,13 @@ function navigateCarousel(direction) {
     }
 }
 
+// Llama a navigateCarousel para manejar el evento de desplazamiento con los clics en las flechas
+document.querySelector('.carousel-left').addEventListener('click', () => navigateCarousel(-1));
+document.querySelector('.carousel-right').addEventListener('click', () => navigateCarousel(1));
+
+
 
     
-   // Añade un evento de desplazamiento para pausar la animación del carrusel al usar el scroll horizontal
-var carrousel = document.querySelector('.carrousel');
-
-carrousel.addEventListener('wheel', function(event) {
-    if (event.deltaY !== 0) { // Solo se activa si hay desplazamiento vertical
-        carrousel.style.animationPlayState = 'paused'; // Pausa la animación
-    }
-});
 
 
 
