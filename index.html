@@ -138,13 +138,13 @@
         }
 
 
-        .carousel-controls {
-    position: absolute;
-    top: 50%;
+     .carousel-controls {
+    position: sticky;
+    top: 80%; /* Ajusta el valor según la posición que prefieras */
     width: 100%;
     display: flex;
     justify-content: space-between;
-    transform: translateY(-50%);
+    z-index: 4; /* Asegúrate de que esté encima de .controls */
 }
 
 .carousel-left, .carousel-right {
