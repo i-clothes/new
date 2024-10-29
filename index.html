@@ -138,26 +138,28 @@
         }
 
 
-     .carousel-controls {
-    position: sticky;
-    top: 80%; /* Ajusta el valor según la posición que prefieras */
+    .carousel-controls {
+    position: absolute;
+    bottom: 10px; /* Ajusta la distancia desde el fondo */
     width: 100%;
     display: flex;
     justify-content: space-between;
-    z-index: 4; /* Asegúrate de que esté encima de .controls */
+    z-index: 4;
+    pointer-events: auto;
 }
 
 .carousel-left, .carousel-right {
     cursor: pointer;
     width: 50px;
     height: 50px;
-    opacity: 0.7;
+    opacity: 0.8;
     transition: opacity 0.3s;
 }
 
 .carousel-left:hover, .carousel-right:hover {
     opacity: 1;
 }
+
 
 
         .producto {
@@ -520,6 +522,7 @@ function navigateCarousel(direction) {
     const carrousel = document.querySelector('.carrousel');
     const productos = Array.from(carrousel.children);
     const scrollPosition = carrousel.scrollLeft;
+    const carrouselWidth = carrousel.offsetWidth;
     let closestProduct = null;
 
     // Pausa la animación al hacer clic en las flechas
@@ -527,33 +530,27 @@ function navigateCarousel(direction) {
 
     // Encontrar el producto más cercano en la dirección seleccionada
     if (direction === -1) { // Navegación a la izquierda
-        closestProduct = productos.find(product => product.offsetLeft < scrollPosition);
+        closestProduct = productos.reverse().find(product => product.offsetLeft + product.offsetWidth < scrollPosition);
     } else if (direction === 1) { // Navegación a la derecha
         closestProduct = productos.find(product => product.offsetLeft > scrollPosition);
     }
 
-    // Desplazar al producto más cercano o esconder la flecha si no hay más productos
+    // Centrar el producto más cercano si existe
     if (closestProduct) {
-        carrousel.scrollLeft = closestProduct.offsetLeft;
-    } else {
-        // Ocultar las flechas si no hay más productos en esa dirección
-        if (direction === -1) {
-            document.querySelector('.carousel-left').style.display = 'none';
-        } else {
-            document.querySelector('.carousel-right').style.display = 'none';
-        }
+        const productOffset = closestProduct.offsetLeft;
+        const scrollOffset = productOffset - (carrouselWidth - closestProduct.offsetWidth) / 2;
+        carrousel.scrollLeft = scrollOffset;
     }
 
-    // Mostrar las flechas si hay productos disponibles en la dirección opuesta
-    if (productos.some(product => product.offsetLeft > carrousel.scrollLeft)) {
-        document.querySelector('.carousel-right').style.display = 'block';
-    }
-    if (productos.some(product => product.offsetLeft < carrousel.scrollLeft)) {
-        document.querySelector('.carousel-left').style.display = 'block';
+    // Ocultar las flechas si no hay más productos en la dirección seleccionada
+    if (direction === -1) {
+        document.querySelector('.carousel-left').style.display = productos.some(product => product.offsetLeft < carrousel.scrollLeft) ? 'block' : 'none';
+    } else {
+        document.querySelector('.carousel-right').style.display = productos.some(product => product.offsetLeft > carrousel.scrollLeft) ? 'block' : 'none';
     }
 }
 
-// Llama a navigateCarousel para manejar el evento de desplazamiento con los clics en las flechas
+// Asigna el evento de clic a las flechas de navegación
 document.querySelector('.carousel-left').addEventListener('click', () => navigateCarousel(-1));
 document.querySelector('.carousel-right').addEventListener('click', () => navigateCarousel(1));
 
