@@ -357,6 +357,25 @@
          width: 60px;
         margin: auto;
     }
+
+
+.contrareembolso-label {
+    display: inline-flex;
+    align-items: center;
+    font-size: 0.9rem;
+    background-color: #f0f0f0;
+    color: #333;
+    padding: 5px 10px;
+    border-radius: 5px;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+    font-weight: bold;
+}
+
+.contrareembolso-label i {
+    color: #28a745; /* Verde para indicar disponibilidad */
+    margin-right: 5px;
+}
+
     </style>
 </head>
 <body>
@@ -398,6 +417,9 @@
                 <img src="cascos.png" alt="AuricularesPro Max">
                 <h3>AuricularesPro Max</h3>
                 <span class="top-ventas">29,99€</span>
+                <div class="contrareembolso-label">
+                    <i class="fas fa-hand-holding-usd"></i> Contrareembolso Disponible: Paga en Mano
+                </div>
             </div>
             <div class="producto" data-link="https://juancarloscruzcoba.systeme.io/auriculares-pro-max" data-index="1">
                 <img src="cascos2.png" alt="AuricularesPro Max">
@@ -425,14 +447,15 @@
             <div class="producto" data-link="https://www.marketingfuturoia.marketing/auriculares-pro-max" data-index="0">
                 <img src="relojia.png">
                 <h3>Smartwatch Ultra Negro + 1 Correa Gratis</h3>
+                  <span class="top-ventas">49,99€</span>
             </div>
             <div class="producto" data-link="https://www.marketingfuturoia.marketing/auriculares-pro-max" data-index="1">
                 <img src="relojia2.png">
-                <h3>Smartwatch Ultra Gris + 1 Correa Gratis</h3>
+                  <span class="top-ventas">49,99€</span>
             </div>
             <div class="producto" data-link="https://www.marketingfuturoia.marketing/auriculares-pro-max" data-index="2">
                 <img src="relojia3.png">
-                <h3>Smartwatch T500+ Blanco</h3>
+                  <span class="top-ventas">49,99€</span>
             </div>
         </div>
     </div>
